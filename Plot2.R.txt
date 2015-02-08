@@ -1,0 +1,16 @@
+
+
+##Read the house hold consumption data into variable named data
+data <- read.table("./household_power_consumption.txt", header=TRUE, sep=";", stringsAsFactors=FALSE, dec=".")
+
+##Subsetting the data according to the requirement
+subSetData <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+
+##Fetching the required Data
+datetime <- strptime(paste(subSetData$Date, subSetData$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+globalActivePowerData <- as.numeric(subSetData$Global_active_power)
+
+##Plotting the Graph as per requirement
+png("Plot2.png", width=480, height=480)
+plot(datetime, globalActivePowerData, type="l", ylab="Global_Active_Power(Kilowatts)")
+dev.off()
